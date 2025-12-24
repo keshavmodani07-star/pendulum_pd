@@ -1,0 +1,47 @@
+<mujoco model="inverted_pendulum">
+
+  <option gravity="0 0 -9.81"/>
+
+  <worldbody>
+
+    <light diffuse="0.5 0.5 0.5" pos="0 0 3" dir="0 0 -1"/>
+
+    <!-- Floor -->
+    <geom
+      type="plane"
+      pos="0 0 0"
+      size="5 5 0.1"
+      rgba="0.9 0 0 1"/>
+
+    <!-- Pendulum -->
+    <body name="pendulum" pos="0 0 2">
+
+      <joint
+        name="pin"
+        type="hinge"
+        axis="0 1 0"
+        damping="0"/>
+
+      <geom
+        type="cylinder"
+        pos="0 0 -0.5"
+        size="0.05 0.5"
+        mass="1"
+        rgba="0 0.9 0 1"/>
+
+    </body>
+
+  </worldbody>
+
+  <!-- Motor for torque control -->
+  <actuator>
+    <motor
+      name="motor"
+      joint="pin"
+      ctrlrange="-30 30"
+      ctrllimited="true"/>
+  </actuator>
+
+</mujoco>
+ 
+ 
