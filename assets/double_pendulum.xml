@@ -1,0 +1,89 @@
+<mujoco model="two_link_arm">
+
+  <!-- Physics -->
+  <option timestep="0.001" integrator="RK4" gravity="0 0 -9.81"/>
+
+  <worldbody>
+
+    <!-- Light -->
+    <light diffuse="0.5 0.5 0.5" pos="0 0 3" dir="0 0 -1"/>
+
+    <!-- Red floor -->
+    <geom
+      type="plane"
+      pos="0 0 0"
+      size="5 5 0.1"
+      rgba="0.9 0 0 1"/>
+
+    <!-- FIRST LINK (GREEN, FIXED TO WORLD) -->
+    <body name="link1" pos="-1.0 0 1.25">
+
+      <!-- Hinge at world -->
+      <joint
+        name="pin1"
+        type="hinge"
+        axis="0 1 0"/>
+
+      <!-- Green horizontal cylinder -->
+      <geom
+        type="capsule"
+        fromto="0 0 0   0.8 0 0"
+        size="0.05"
+        mass="1"
+        rgba="0 0.9 0 1"/>
+
+      <!-- SECOND LINK (BLUE) -->
+      <body name="link2" pos="0.8 0 0">
+
+        <joint
+          name="pin2"
+          type="hinge"
+          axis="0 1 0"/>
+
+        <!-- Blue horizontal cylinder -->
+        <geom
+          type="capsule"
+          fromto="0 0 0   0.8 0 0"
+          size="0.05"
+          mass="1"
+          rgba="0 0 0.9 1"/>
+
+        <!-- End effector -->
+        <site
+          name="endeff"
+          pos="0.8 0 0"
+          size="0.08"
+          rgba="1 1 0 1"/>
+
+      </body>
+
+    </body>
+
+  </worldbody>
+
+  <!-- ACTUATORS -->
+  <actuator>
+
+    <position name="pservo1" joint="pin1" kp="100"/>
+    <velocity name="vservo1" joint="pin1" kv="10"/>
+
+    <position name="pservo2" joint="pin2" kp="100"/>
+    <velocity name="vservo2" joint="pin2" kv="10"/>
+
+  </actuator>
+
+  <!-- SENSORS -->
+  <sensor>
+
+    <framepos    name="ee_pos" objtype="site" objname="endeff"/>
+    <framelinvel name="ee_vel" objtype="site" objname="endeff"/>
+
+  </sensor>
+
+  <!-- Initial angles -->
+  <keyframe>
+    <key qpos="0.3 -0.4" qvel="0 0"/>
+  </keyframe>
+
+</mujoco>
+
