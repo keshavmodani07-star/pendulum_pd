@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/single_pendulum.dir/src/main.c.o -o single_pendulum  -Wl,-rpath,/home/keshav/Desktop/mujoco-3.4.0/pendulum_pd/../lib ../../lib/libmujoco.so /usr/lib/x86_64-linux-gnu/libglfw.so.3.3 -lGL -lm -ldl 
